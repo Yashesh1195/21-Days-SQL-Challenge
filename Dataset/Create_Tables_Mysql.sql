@@ -1,4 +1,3 @@
-
 USE hospital;
 
 -- 1. Patients Table
