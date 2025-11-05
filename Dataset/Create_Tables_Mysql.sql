@@ -13,18 +13,18 @@ CREATE TABLE patients (
 );
 
 -- 2. Services Weekly Table
-CREATE TABLE services_weekly (
-    week INT,
-    month INT,
-    service VARCHAR(50),
-    available_beds INT,
-    patients_request INT,
-    patients_admitted INT,
-    patients_refused INT,
-    patient_satisfaction INT,
-    staff_morale INT,
-    event VARCHAR(100)
-);
+	CREATE TABLE services_weekly (
+		week INT,
+		month INT,
+		service VARCHAR(50),
+		available_beds INT,
+		patients_request INT,
+		patients_admitted INT,
+		patients_refused INT,
+		patient_satisfaction INT,
+		staff_morale INT,
+		event VARCHAR(100)
+	);
 
 -- 3. Staff Table
 CREATE TABLE staff (
