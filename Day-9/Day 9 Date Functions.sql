@@ -2,13 +2,6 @@ USE hospital;
 
 -- Date functions help you work with dates and times in SQL.
 -- **Common Date Functions:**
--- SQLite examples (syntax varies by database)
--- DATE('now')                   -- Current date
--- JULIANDAY(date)               -- Convert to Julian day number 		-- SQLite
--- DATE(date, '+1 day')          -- Add 1 day
--- strftime('%Y', date)          -- Extract year
--- strftime('%m', date)          -- Extract month
--- strftime('%d', date)          -- Extract day
 -- MySQL Syntax:-
 -- DATEDIFF(end_date, start_date) 		-- returns the number of days between two dates.
 
