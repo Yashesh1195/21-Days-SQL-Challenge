@@ -77,7 +77,7 @@ SELECT
     SUM(present) AS total_staff_present
 FROM staff_schedule
 GROUP BY week
-HAVING total_staff_present > 50;
+HAVING total_staff_present < 50;
 
 -- Daily Challenge:
 -- Question: Identify services that refused more than 100 patients in total and had an average patient satisfaction below 80. 
