@@ -1,7 +1,8 @@
 USE hospital;
 
 -- Subqueries are queries nested inside other queries. In WHERE clauses, they filter based on results from another query.
--- SELECT columnsFROM table1
+-- SELECT columns
+-- FROM table1
 -- WHERE column IN (
 --     SELECT column    FROM table2
 --     WHERE condition
