@@ -118,8 +118,8 @@ ORDER BY p.arrival_date ASC;
 -- count of staff assigned to service, and count of staff present that week. 
 -- Order by patients admitted descending.
 SELECT 
+	sw.week,
 	sw.service,
-    sw.week,
     sw.patients_admitted,
     sw.patients_refused,
     ROUND(AVG(sw.patient_satisfaction), 2) AS avg_pat_sat,
