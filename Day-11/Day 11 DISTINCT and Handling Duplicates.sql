@@ -64,6 +64,6 @@ SELECT
 	DISTINCT service, event,
     COUNT(*) AS occurrence
 FROM services_weekly
-WHERE event IS NOT NULL AND LOWER(event) <> 'none'
+WHERE event IS NOT NULL AND LOWER(event) <> 'none' AND TRIM(event) <> 'none'
 GROUP BY service, event
 ORDER BY occurrence DESC;
