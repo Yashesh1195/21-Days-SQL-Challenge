@@ -88,7 +88,13 @@ ORDER BY sw.week ASC, sw.service ASC;
 
 -- 3. Create a report showing patient information along with staff assigned to their service.
 SELECT 
-	p.*,
+	-- p.*,
+	p.patient_id,
+    p.name AS patient_name,
+    p.arrival_date,
+    p.departure_date,
+    p.service,
+    p.satisfaction,
     s.staff_id,
     s.staff_name
 FROM patients p
