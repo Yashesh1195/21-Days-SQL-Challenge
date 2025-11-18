@@ -31,12 +31,17 @@ SELECT
     SUM(COALESCE(ss.present, 0)) AS weeks_present
 FROM staff s
 LEFT JOIN staff_schedule ss ON s.staff_id = ss.staff_id
-GROUP BY s.staff_id, s.staff_name, s.role ,s.service;
+GROUP BY s.staff_id, s.staff_name, s.role, s.service;
 
 -- Find staff with NO schedule records
 -- Write an SQL query to find all staff members who have no schedule records in the staff_schedule table.
 -- Display all columns from the staff table for such staff members.
-SELECT s.* FROM staff s
+SELECT 
+	s.staff_id,
+    s.staff_name,
+    s.role,
+    s.service
+FROM staff s
 LEFT JOIN staff_schedule ss ON s.staff_id = ss.staff_id
 WHERE ss.staff_id IS NULL;
 
