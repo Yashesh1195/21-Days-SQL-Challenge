@@ -44,7 +44,7 @@ SELECT
     p.name AS patient_name,
     p.service,
     p.arrival_date,
-    COUNT(DISTINCT s.staff_id) AS assigned_staff,
+    COUNT(DISTINCT s.staff_id) AS total_staff_assigned,
     AVG(ss.present) AS avg_staff_presence
 FROM patients p
 INNER JOIN staff s ON p.service = s.service
