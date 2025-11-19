@@ -123,7 +123,7 @@ SELECT
     sw.patients_admitted,
     sw.patients_refused,
     ROUND(AVG(sw.patient_satisfaction), 2) AS avg_pat_sat,
-    COUNT(DISTINCT s.staff_id) AS total_ataff,
+    COUNT(DISTINCT s.staff_id) AS total_staff,
     SUM(COALESCE(ss.present, 0)) AS staff_present
 FROM services_weekly sw
 LEFT JOIN staff s ON sw.service = s.service
