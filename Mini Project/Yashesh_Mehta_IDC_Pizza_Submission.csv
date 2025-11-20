@@ -1,0 +1,17 @@
+﻿Name,Email Address,AnswerQuery
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT DISTINCT (category) FROM pizza_types;
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT pizza_type_id, name, COALESCE(ingredients, ""Missing Data"") as ingredients FROM pizza_types LIMIT 5;"
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT * FROM pizzas WHERE price IS NULL;
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT * FROM orders WHERE date = '2015-01-01';
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT * FROM pizzas ORDER BY price DESC;
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT * FROM pizzas WHERE size = 'L' OR size = 'XL';
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT * FROM pizzas WHERE price BETWEEN 15.00 AND 17.00;
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT * FROM pizza_types WHERE INSTR(name, 'Chicken') > 0;"
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT * FROM orders WHERE date = '2015-02-15' OR time > '20:00:00';
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT SUM(quantity) as total_pizzas_sold FROM order_details;
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT ROUND(AVG(price), 2) AS avg_pizza_price FROM pizzas;"
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT od.order_id, SUM(p.price) AS total_order_value FROM order_details od JOIN pizzas p ON od.pizza_id = p.pizza_id GROUP BY od.order_id;"
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT pt.category, SUM(od.quantity) AS total_sold FROM order_details od JOIN pizzas p ON od.pizza_id = p.pizza_id JOIN pizza_types pt ON p.pizza_type_id = pt.pizza_type_id GROUP BY pt.category;"
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT pt.category, SUM(od.quantity) AS total_sold FROM order_details od JOIN pizzas p ON od.pizza_id = p.pizza_id JOIN pizza_types pt ON p.pizza_type_id = pt.pizza_type_id GROUP BY pt.category HAVING total_sold > 5000; "
+Yashesh Mehta,yasheshmehta2005@gmail.com,SELECT p.* FROM pizzas p LEFT JOIN order_details od ON p.pizza_id = od.pizza_id WHERE od.pizza_id IS NULL;
+Yashesh Mehta,yasheshmehta2005@gmail.com,"SELECT p1.pizza_type_id, p1.size AS size1, p1.price AS price1, p2.size AS size2, p2.price AS price2, (p2.price - p1.price) AS price_difference FROM pizzas p1 JOIN pizzas p2 ON p1.pizza_type_id = p2.pizza_type_id AND (CASE p1.size WHEN 'S' THEN 1 WHEN 'M' THEN 2 WHEN 'L' THEN 3 WHEN 'XL' THEN 4 WHEN 'XXL' THEN 5 END < CASE p2.size WHEN 'S' THEN 1 WHEN 'XXL' THEN 5 END) ORDER BY p1.pizza_type_id, p1.size, p2.size;"
