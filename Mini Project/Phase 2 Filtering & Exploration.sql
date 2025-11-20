@@ -14,6 +14,8 @@ SELECT * FROM pizzas WHERE price BETWEEN 15.00 AND 17.00;
 
 -- 5. Pizzas with `"Chicken"` in the name.
 SELECT * FROM pizza_types WHERE INSTR(name, 'Chicken') > 0;
+-- OR
+SELECT * FROM pizza_types WHERE LOCATE('Chicken', name) > 0;
 
 -- 6. Orders on `'2015-02-15'` or placed after 8 PM.
 SELECT * FROM orders WHERE date = '2015-02-15' OR time > '20:00:00';
