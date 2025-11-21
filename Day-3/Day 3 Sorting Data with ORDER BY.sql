@@ -22,7 +22,7 @@ SELECT name, age, satisfaction FROM patients ORDER BY satisfaction DESC LIMIT 10
 select * from patients order by age desc;
 
 -- 2. Show all services_weekly data sorted by week number ascending and patients_request descending.
-select * from services_weekly order by week asc, patients_request desc;
+SELECT * FROM services_weekly ORDER BY week ASC, patients_request DESC;
 
 -- 3. Display staff members sorted alphabetically by their names.
 SELECT * FROM staff ORDER BY staff_name ASC;
