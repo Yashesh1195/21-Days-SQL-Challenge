@@ -23,10 +23,10 @@ ORDER BY service ASC;
 -- Question:- Write a query to display, for each service, the total number of patients, the average age of patients, and the average 
 -- satisfaction score.The results should be grouped by service and ordered in descending order of the total number of patients.
 SELECT 
+	service,
 	COUNT(*) AS total_patients,
     AVG(age) AS avg_age,
-    ROUND(AVG(satisfaction), 2) AS avg_satisfaction,
-    service
+    ROUND(AVG(satisfaction), 2) AS avg_satisfaction
 FROM patients
 GROUP BY service
 ORDER BY total_patients DESC;
@@ -53,7 +53,7 @@ ORDER BY count DESC;  -- Order by the aggregated count
 SELECT 
 	service,
     COUNT(*) AS patient_count
-FROM patients
+FROM services_weekly
 GROUP BY service
 ORDER BY service ASC;
     
@@ -76,11 +76,11 @@ ORDER BY role ASC;
 -- Daily Challenge:
 -- Question: For each hospital service, calculate the total number of patients admitted, total patients refused, 
 -- and the admission rate (percentage of requests that were admitted). Order by admission rate descending.
-SELECT
+SELECT 
 	service,
-    SUM(patients_admitted) as total_patients_admitted,
-    SUM(patients_refused) as total_patients_refused,
-    ROUND((SUM(patients_admitted) * 100.0 / SUM(patients_request)), 2) AS admission_rate
+    SUM(patients_admitted) AS total_patients_admitted,
+    SUM(patients_refused) AS total_patients_refused,
+    ROUND(SUM(patients_admitted) * 100.0 / SUM(patients_request), 2) AS admission_rate
 FROM services_weekly
 GROUP BY service
 ORDER BY admission_rate DESC;
