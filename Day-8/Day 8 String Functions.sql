@@ -16,7 +16,7 @@ SELECT UPPER(name) AS upper_name FROM patients;
 SELECT LOWER(name) AS lower_name FROM patients;
 
 -- Concatenate columns
-SELECT CONCAT(name, '-', service) AS patients_info FROM patients;
+SELECT CONCAT(name, ' - ', service) AS patients_info FROM patients;
 
 -- Get name length
 SELECT name, LENGTH(name) AS name_length FROM patients WHERE LENGTH(name) > 15;
@@ -43,7 +43,8 @@ SELECT TRIM(name) AS name_trim FROM patients;
 SELECT
     name,
     CASE
-        WHEN LENGTH(name) > 20 THEN SUBSTRING(name, 1, 20) || '...'        ELSE name
+        WHEN LENGTH(name) > 20 THEN SUBSTRING(name, 1, 20) || '...'
+        ELSE name
     END AS display_name
 FROM patients;
 
@@ -73,4 +74,3 @@ SELECT
     LENGTH(name) as name_length
 FROM patients
 WHERE LENGTH(name) > 10;
-    
