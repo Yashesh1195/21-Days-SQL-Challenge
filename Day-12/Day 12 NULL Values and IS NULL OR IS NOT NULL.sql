@@ -74,7 +74,7 @@ SELECT DISTINCT service FROM services_weekly WHERE event IS NOT NULL AND TRIM(ev
 -- Order by average patient satisfaction descending.
 SELECT
 	CASE
-		WHEN event IS NULL OR TRIM(event) = '' OR LOWER(event) = 'none' THEN 'No Event'
+		WHEN event IS NULL OR TRIM(event) = 'none' OR LOWER(event) = 'none' THEN 'No Event'
 		ELSE 'With Event'
 	END AS event_status,
     COUNT(DISTINCT week) AS week_count,
