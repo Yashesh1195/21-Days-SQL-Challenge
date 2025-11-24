@@ -89,12 +89,12 @@ SELECT
     sw.service,
     sw.patients_admitted,
     sw.patients_refused,
-    ROUND(AVG(patient_satisfaction), 2) AS avg_sat,
+    ROUND(AVG(sw.patient_satisfaction), 2) AS avg_sat,
     COUNT(DISTINCT s.staff_id) AS total_staff,
     SUM(COALESCE(ss.present, 0)) AS staff_persent
 FROM services_weekly sw 
 LEFT JOIN staff s ON sw.service = s.service
-LEFT JOIN staff_schedule ss ON sw.week = ss.week
+LEFT JOIN staff_schedule ss ON s.staff_id = ss.staff_id AND sw.week = ss.week
 GROUP BY sw.week, sw.service, sw.patients_admitted, sw.patients_refused
 ORDER BY sw.week, sw.service; 
 
