@@ -106,7 +106,7 @@ INNER JOIN staff s ON p.service = s.service;
 -- Order by number of staff descending, then by patient name.
 SELECT
 	p.patient_id,
-    p.name,
+    p.name AS patient_name,
     p.age,
     p.service,
     COUNT(s.staff_id) AS total_staff_members
@@ -114,4 +114,4 @@ FROM patients p
 INNER JOIN staff s ON p.service = s.service
 GROUP BY p.patient_id, p.name, p.age, p.service
 HAVING COUNT(s.staff_id) > 5
-ORDER BY COUNT(s.staff_id) DESC, p.name ASC;
+ORDER BY COUNT(s.staff_id) DESC, patient_name ASC;
