@@ -55,7 +55,7 @@ WHERE sat_rnk <= 3;
 SELECT
 	service,
     SUM(patients_admitted) AS total_patients_admitted,
-    RANK() OVER (ORDER BY SUM(patients_admitted) DESC) AS patient_admission_rank
+    RANK() OVER (ORDER BY SUM(patients_admitted) DESC) AS patient_admissions_rank
 FROM services_weekly
 GROUP BY service;
 
