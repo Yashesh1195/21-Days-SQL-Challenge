@@ -20,7 +20,7 @@ SELECT
     name,
     service,
     satisfaction,
-    ROW_NUMBER() OVER (PARTITION BY service ORDER BY satisfaction DESC) AS row_num
+    ROW_NUMBER() OVER (PARTITION BY service ORDER BY satisfaction DESC) AS sat_row_num
 FROM patients;
 
 -- Rank patients by satisfaction (with ties)
@@ -47,7 +47,8 @@ FROM (
         RANK() OVER (PARTITION BY service ORDER BY patient_satisfaction DESC) AS sat_rnk
 	FROM services_weekly
 ) AS top_3_rank
-WHERE sat_rnk <= 3;
+WHERE sat_rnk <= 3
+ORDER BY sat_rnk, service;
 
 -- Rank services by total admissions
 -- Write a query to calculate the total number of patients admitted for each service and 
