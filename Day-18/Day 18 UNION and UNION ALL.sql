@@ -99,9 +99,9 @@ SELECT staff_name FROM staff;  -- TEXT (may error)
 
 -- Practice Questions:
 -- 1. Combine patient names and staff names into a single list.
-SELECT name AS patient_name, 'Patient' AS source FROM patients
+SELECT name AS full_name, 'Patient' AS source FROM patients
 UNION
-SELECT staff_name, 'Staff' AS source FROM staff;
+SELECT staff_name AS full_name, 'Staff' AS source FROM staff;
 
 -- 2. Create a union of high satisfaction patients (>90) and low satisfaction patients (<70).
 SELECT patient_id, name, satisfaction, 'HIGH SATISFACTION' AS metric 
