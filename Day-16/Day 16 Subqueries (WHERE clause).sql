@@ -4,7 +4,8 @@ USE hospital;
 -- SELECT columns
 -- FROM table1
 -- WHERE column IN (
---     SELECT column    FROM table2
+--     SELECT column
+--     FROM table2
 --     WHERE condition
 -- );
 
@@ -27,7 +28,7 @@ WHERE age > (
 -- Services that had any week with refusals
 SELECT DISTINCT service FROM services_weekly sw1
 WHERE EXISTS (
-	SELECT 1 FROM services_weekly sw2 
+	SELECT sw2.week FROM services_weekly sw2 
     WHERE sw2.service = sw1.service AND sw2.patients_refused > 0);
     
 -- Patients NOT in services with staff shortages
@@ -105,12 +106,12 @@ SELECT
     p.satisfaction
 FROM patients p
 WHERE p.service IN (
-SELECT service FROM services_weekly
-WHERE patients_refused > 0)
+	SELECT service FROM services_weekly
+	WHERE patients_refused > 0)
 AND p.service IN (
-SELECT service FROM services_weekly
-GROUP BY service
-HAVING AVG(patient_satisfaction) < (
-	SELECT AVG(patient_satisfaction) FROM services_weekly
-    )
+	SELECT service FROM services_weekly
+	GROUP BY service
+	HAVING AVG(patient_satisfaction) < (
+		SELECT AVG(patient_satisfaction) FROM services_weekly
+	)
 );
