@@ -121,10 +121,11 @@ SELECT
     p.name,
     p.service,
     (
-		SELECT AVG(s.patient_satisfaction) AS avg_satisfaction
-        FROM services_weekly s
-        WHERE p.service = s.service
-    ) AS avg_service_satisfaction
+		-- SQ1
+		SELECT AVG(sw.patient_satisfaction) AS avg_sat
+		FROM services_weekly sw
+        WHERE p.service = sw.service
+	) AS avg_service_satisfaction
 FROM patients p;
 
 -- 2. Create a derived table of service statistics and query from it.
@@ -170,6 +171,7 @@ FROM staff s;
 SELECT
 	service,
     total_admitted,
+    -- avg_admitted,
     total_admitted - avg_admitted AS diff_from_avg,
     CASE
 		WHEN total_admitted > avg_admitted THEN 'Above Average'
