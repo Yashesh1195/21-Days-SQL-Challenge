@@ -113,7 +113,7 @@ SELECT
         ROWS BETWEEN 3 PRECEDING AND CURRENT ROW
     ), 2) AS moving_avg_4_week_period
 FROM services_weekly;
-    
+
 -- 3. Show cumulative patient refusals by week across all services.
 SELECT
     week,
