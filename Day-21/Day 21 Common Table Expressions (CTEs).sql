@@ -26,15 +26,15 @@ USE hospital;
 -- Then, show only those services where the average satisfaction is greater than 75, 
 -- ordered by the number of patients in descending order.
 -- Use a CTE (Common Table Expression) to organize your query.
-WITH service_stats AS (
+WITH service_statistics AS (
 	SELECT 
 		service,
 		COUNT(*) AS total_patients,
-		AVG(satisfaction) AS avg_satisfaction
+        AVG(satisfaction)  AS avg_satisfaction
 	FROM patients
-	GROUP BY service
+    GROUP BY service
 )
-SELECT * FROM service_stats
+SELECT * FROM service_statistics
 WHERE avg_satisfaction > 75
 ORDER BY total_patients DESC;
 
@@ -50,7 +50,7 @@ ORDER BY total_patients DESC;
 -- Finally, display the results ordered by average satisfaction in descending order.
 WITH
 patient_metrics AS (
-	SELECT 
+	SELECT
 		service,
         COUNT(*) AS total_patients,
         AVG(age) AS avg_age,
@@ -66,26 +66,25 @@ staff_metrics AS (
     GROUP BY service
 ),
 weekly_metrics AS (
-	SELECT 
+	SELECT
 		service,
         SUM(patients_admitted) AS total_admitted,
         SUM(patients_refused) AS total_refused
 	FROM services_weekly
     GROUP BY service
 )
-SELECT 
-	pm.service,
-    pm.total_patients,
+SELECT
+	pm.total_patients,
     pm.avg_age,
     pm.avg_satisfaction,
     sm.total_staff,
     wm.total_admitted,
     wm.total_refused,
-    ROUND(100.0 * wm.total_admitted / (wm.total_admitted + wm.total_refused), 2) AS admission_rate
+    ROUND(100.0 * (wm.total_admitted) / (wm.total_admitted + wm.total_refused), 2) AS admission_rate
 FROM patient_metrics pm
 LEFT JOIN staff_metrics sm ON pm.service = sm.service
 LEFT JOIN weekly_metrics wm ON pm.service = wm.service
-ORDER BY pm.avg_satisfaction DESC;
+ORDER BY pm.avg_satisfaction DESC;	
 
 -- CTE referencing another CTE
 -- Write a query to list all patients who belong to high-performing services.
@@ -93,7 +92,7 @@ ORDER BY pm.avg_satisfaction DESC;
 -- than the average admissions across all services.
 -- Use one CTE to calculate total admissions per service, 
 -- and another CTE (that references the first) to filter only high-performing ones.
-WITH
+WITH 
 all_admissions AS (
 	SELECT
 		service,
@@ -106,8 +105,7 @@ high_performing_services AS (
     FROM all_admissions
     WHERE total > (SELECT AVG(total) FROM all_admissions)
 )
-SELECT *
-FROM patients
+SELECT * FROM patients
 WHERE service IN (SELECT service FROM high_performing_services);
 
 -- ✅ CTEs vs Subqueries:
@@ -131,9 +129,11 @@ JOIN service_avg sa ON p.service = sa.service
 WHERE p.satisfaction > sa.avg_sat;  -- Reference CTE twice
 
 -- ✅ Use descriptive CTE names that explain what they contain:
--- Test first CTEWITH cte1 AS (SELECT ...)
+-- Test first CTE
+-- WITH cte1 AS (SELECT ...)
 -- SELECT * FROM cte1;
--- Then add second CTEWITH cte1 AS (...), cte2 AS (...)
+-- Then add second CTE
+-- WITH cte1 AS (...), cte2 AS (...)
 -- SELECT * FROM cte2;
 
 -- ✅ Not materialized by default - some databases recalculate CTEs each time they’re referenced. 
@@ -250,24 +250,19 @@ staff_metrics AS (
     GROUP BY service
 ),
 patient_demographics AS (
-	SELECT
+	SELECT 
 		service,
         COUNT(*) AS total_patients,
         ROUND(AVG(age), 2) AS avg_age
 	FROM patients
     GROUP BY service
 )
-SELECT
-	sm.service,
-    sm.total_admissions,
-    sm.total_refusals,
-    sm.avg_satisfaction,
-    st.total_staff,
-    st.avg_weeks_present,
-    pd.total_patients,
-    pd.avg_age,
-    ROUND(100.0 * sm.total_admissions / (sm.total_admissions + sm.total_refusals), 2) AS admission_rate,
-    ROUND(0.6 * (100.0 * sm.total_admissions / (sm.total_admissions + sm.total_refusals))
+SELECT 
+	sm.*,
+    st.*,
+    pd.*,
+    ROUND(100.0 * (sm.total_admissions) / (sm.total_admissions + sm.total_refusals), 2) AS admission_rate,
+    ROUND(0.6 * (100.0 * (sm.total_admissions) / (sm.total_admissions + sm.total_refusals))
 		+ 0.4 * sm.avg_satisfaction, 2) AS performance_score
 FROM service_metrics sm
 LEFT JOIN staff_metrics st ON sm.service = st.service
