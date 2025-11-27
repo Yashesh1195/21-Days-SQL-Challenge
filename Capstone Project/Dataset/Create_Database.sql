@@ -1,0 +1,1 @@
+CREATE DATABASE IDC_Tech_Nova;
