@@ -171,13 +171,47 @@ sus_call AS (
     WHERE call_time BETWEEN '2025-10-15 20:50:00' AND '2025-10-15 21:20:00'
 
 )
+SELECT 
+	CONCAT('Killer is ', ed.name) AS killer
+FROM employee_details ed
+JOIN key_card_logs kcl ON ed.employee_id = kcl.employee_id
+JOIN alibis_found af ON ed.employee_id = af.employee_id
+JOIN sus_call sc ON ed.employee_id = sc.employee_id;
+
+-- ----------------OR------------------ --
+-- 6. Combine all findings to identify the killer
+WITH
+employee_details AS (
+	SELECT * 
+    FROM employees
+),
+key_card_logs AS (
+	SELECT employee_id
+	FROM keycard_logs
+    WHERE entry_time BETWEEN '2025-10-15 20:40:00' AND '2025-10-15 21:20:00'
+),
+alibis_found AS (
+	SELECT employee_id, claimed_location
+	FROM alibis
+    WHERE claim_time BETWEEN '2025-10-15 20:40:00' AND '2025-10-15 21:20:00'
+),
+sus_call AS (
+	SELECT DISTINCT caller_id AS employee_id
+    FROM calls
+    WHERE call_time BETWEEN '2025-10-15 20:50:00' AND '2025-10-15 21:20:00'
+    UNION
+	SELECT DISTINCT receiver_id AS employee_id
+    FROM calls
+    WHERE call_time BETWEEN '2025-10-15 20:50:00' AND '2025-10-15 21:20:00'
+
+)
 -- match_evidence AS (
 -- 	SELECT *
 --     FROM evidence
 -- 	WHERE found_time BETWEEN '2025-10-15 20:40:00' AND '2025-10-15 21:20:00'
 -- )
 SELECT 
-	ed.*
+	CONCAT('Killer is ', ed.name) AS killer
     -- sc.*
     -- me.*
 FROM employee_details ed
